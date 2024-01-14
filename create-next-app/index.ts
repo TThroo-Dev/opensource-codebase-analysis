@@ -36,6 +36,11 @@ const onPromptState = (state: {
   }
 }
 
+// Commander is a package for CLI available here:
+// https://www.npmjs.com/package/commander
+// packageJson is from import on top of the file
+// import packageJson from './package.json'
+// I personally never had to import anything from package.json, I guess you can do it.
 const program = new Commander.Command(packageJson.name)
   .version(packageJson.version)
   .arguments('<project-directory>')
@@ -160,8 +165,15 @@ const packageManager = !!program.useNpm
   : getPkgManager()
 
 async function run(): Promise<void> {
+
+  // a Conf object creation with projectName.
+  // We do not know what Conf does yet and it is okay.
   const conf = new Conf({ projectName: 'create-next-app' })
 
+  // My first thought, where did the program come from?
+  // Let’s find out by looking outside the run() function.
+  // We skipped Conf class but the program variable cannot be skipped.
+  // I know for a fact it is a global variable.
   if (program.resetPreferences) {
     conf.clear()
     console.log(`Preferences reset successfully`)
@@ -498,21 +510,40 @@ async function notifyUpdate(): Promise<void> {
 }
 
 run()
-  .then(notifyUpdate)
+  .then(notifyUpdate)  // On successful execution of run(), call notifyUpdate. Not sure what notifyUpdate does yet.
+  // you have a reason why catch failed, 
+  // I tend to put error as variable name,
+  // It makes to label it as reason
   .catch(async (reason) => {
     console.log()
+    // Log explains installation is aborted
+    // How often do you log when you encounter failure?
     console.log('Aborting installation.')
+
+    // This is specifically looking for command prop
+    // Specificity matters when it comes to error logging
     if (reason.command) {
       console.log(`  ${cyan(reason.command)} has failed.`)
     } else {
+      // There is a catchall as well
+      // Nice! 
       console.log(
         red('Unexpected error. Please report it as a bug:') + '\n',
         reason
       )
     }
     console.log()
-
+    // Notify update even when the installation is aborted
+    // This makes me wonder if it is worth writing .then()
+    // But promises do not execute if you don’t put .then()
+    // Learnt it the hard way that one time when I was calling a promise without .then() and 
+    // started questioning my progamming abilities because I forgot to initailise a promise with .then()
+    // How often do you question your programming abilties?
     await notifyUpdate()
 
+    // useful links:
+    // https://stackoverflow.com/questions/5266152/how-to-exit-in-node-js
+    // https://nodejs.org/api/process.html#process
+    // This exits the node process with a failure
     process.exit(1)
   })

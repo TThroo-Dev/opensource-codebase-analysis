@@ -15,7 +15,7 @@
   "author": "Next.js Team <support@vercel.com>",
   "license": "MIT",
   "bin": {
-    "create-tthroo-app": "./dist/index.js"
+    "create-my-app": "./dist/index.js"
   },
   "files": [
     "dist"
