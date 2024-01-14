@@ -42,9 +42,13 @@ const onPromptState = (state: {
 // import packageJson from './package.json'
 // I personally never had to import anything from package.json, I guess you can do it.
 const program = new Commander.Command(packageJson.name)
+  // https://www.npmjs.com/package/commander#version-option
   .version(packageJson.version)
+  // https://www.npmjs.com/package/commander#command-arguments
   .arguments('<project-directory>')
+  // https://www.npmjs.com/package/commander#usage
   .usage(`${green('<project-directory>')} [options]`)
+  // https://www.npmjs.com/package/commander#action-handler
   .action((name) => {
     projectPath = name
   })
