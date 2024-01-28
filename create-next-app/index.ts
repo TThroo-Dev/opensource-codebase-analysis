@@ -51,7 +51,11 @@ const program = new Commander.Command(packageJson.name)
   // https://www.npmjs.com/package/commander#action-handler
   .action((name) => {
     projectPath = name
+    console.log("projectPath", projectPath);
   })
+  // https://www.npmjs.com/package/commander#options
+  // --ts option
+  // https://github.com/vercel/next.js/tree/canary/packages/create-next-app#non-interactive
   .option(
     '--ts, --typescript',
     `
@@ -59,6 +63,9 @@ const program = new Commander.Command(packageJson.name)
   Initialize as a TypeScript project. (default)
 `
   )
+  // https://www.npmjs.com/package/commander#options
+  // --js option
+  // https://github.com/vercel/next.js/tree/canary/packages/create-next-app#non-interactive
   .option(
     '--js, --javascript',
     `
@@ -66,6 +73,9 @@ const program = new Commander.Command(packageJson.name)
   Initialize as a JavaScript project.
 `
   )
+  // https://www.npmjs.com/package/commander#options
+  // --tailwind option
+  // https://github.com/vercel/next.js/tree/canary/packages/create-next-app#non-interactive
   .option(
     '--tailwind',
     `
@@ -73,6 +83,9 @@ const program = new Commander.Command(packageJson.name)
   Initialize with Tailwind CSS config. (default)
 `
   )
+  // https://www.npmjs.com/package/commander#options
+  // --eslint option
+  // https://github.com/vercel/next.js/tree/canary/packages/create-next-app#non-interactive
   .option(
     '--eslint',
     `
@@ -80,6 +93,9 @@ const program = new Commander.Command(packageJson.name)
   Initialize with eslint config.
 `
   )
+  // https://www.npmjs.com/package/commander#options
+  // --app option
+  // https://github.com/vercel/next.js/tree/canary/packages/create-next-app#non-interactive
   .option(
     '--app',
     `
@@ -87,6 +103,9 @@ const program = new Commander.Command(packageJson.name)
   Initialize as an App Router project.
 `
   )
+  // https://www.npmjs.com/package/commander#options
+  // --src-dir option
+  // https://github.com/vercel/next.js/tree/canary/packages/create-next-app#non-interactive
   .option(
     '--src-dir',
     `
@@ -94,6 +113,9 @@ const program = new Commander.Command(packageJson.name)
   Initialize inside a \`src/\` directory.
 `
   )
+  // https://www.npmjs.com/package/commander#options
+  //--import-alias option
+  // https://github.com/vercel/next.js/tree/canary/packages/create-next-app#non-interactive
   .option(
     '--import-alias <alias-to-configure>',
     `
@@ -101,6 +123,9 @@ const program = new Commander.Command(packageJson.name)
   Specify import alias to use (default "@/*").
 `
   )
+  // https://www.npmjs.com/package/commander#options
+  // --use-npm
+  // https://github.com/vercel/next.js/tree/canary/packages/create-next-app#non-interactive
   .option(
     '--use-npm',
     `
@@ -108,6 +133,9 @@ const program = new Commander.Command(packageJson.name)
   Explicitly tell the CLI to bootstrap the application using npm
 `
   )
+  // https://www.npmjs.com/package/commander#options
+  // --use-pnpm
+  // https://github.com/vercel/next.js/tree/canary/packages/create-next-app#non-interactive
   .option(
     '--use-pnpm',
     `
@@ -115,6 +143,9 @@ const program = new Commander.Command(packageJson.name)
   Explicitly tell the CLI to bootstrap the application using pnpm
 `
   )
+  // https://www.npmjs.com/package/commander#options
+  // --use-yarn
+  // https://github.com/vercel/next.js/tree/canary/packages/create-next-app#non-interactive
   .option(
     '--use-yarn',
     `
@@ -122,6 +153,9 @@ const program = new Commander.Command(packageJson.name)
   Explicitly tell the CLI to bootstrap the application using Yarn
 `
   )
+  // https://www.npmjs.com/package/commander#options
+  // --use-bun
+  // https://github.com/vercel/next.js/tree/canary/packages/create-next-app#non-interactive
   .option(
     '--use-bun',
     `
@@ -129,6 +163,9 @@ const program = new Commander.Command(packageJson.name)
   Explicitly tell the CLI to bootstrap the application using Bun
 `
   )
+  // https://www.npmjs.com/package/commander#options
+  // -e
+  // https://github.com/vercel/next.js/tree/canary/packages/create-next-app#non-interactive
   .option(
     '-e, --example [name]|[github-url]',
     `
@@ -138,6 +175,9 @@ const program = new Commander.Command(packageJson.name)
   any branch and/or subdirectory
 `
   )
+  // https://www.npmjs.com/package/commander#options
+  // --example-path  <path-to-example>
+  // https://github.com/vercel/next.js/tree/canary/packages/create-next-app#non-interactive
   .option(
     '--example-path <path-to-example>',
     `
@@ -148,6 +188,9 @@ const program = new Commander.Command(packageJson.name)
   --example-path foo/bar
 `
   )
+  // https://www.npmjs.com/package/commander#options
+  // --example-path  <path-to-example>
+  // https://github.com/vercel/next.js/tree/canary/packages/create-next-app#non-interactive
   .option(
     '--reset-preferences',
     `
@@ -170,9 +213,13 @@ const packageManager = !!program.useNpm
 
 async function run(): Promise<void> {
 
+  console.log("program.resetPreferences:", program.resetPreferences);
+
   // a Conf object creation with projectName.
   // We do not know what Conf does yet and it is okay.
   const conf = new Conf({ projectName: 'create-next-app' })
+
+  console.log("conf", conf);
 
   // My first thought, where did the program come from?
   // Let’s find out by looking outside the run() function.
