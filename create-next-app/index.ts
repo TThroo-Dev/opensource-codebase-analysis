@@ -236,12 +236,18 @@ async function run(): Promise<void> {
   }
 
   if (!projectPath) {
+    // Read more about prompts here: 
+    // https://www.npmjs.com/package/prompts
     const res = await prompts({
+      // onPromptState is a function available at
+      // https://github.com/vercel/next.js/blob/canary/packages/create-next-app/index.ts#L25
       onState: onPromptState,
       type: 'text',
       name: 'path',
       message: 'What is your project named?',
       initial: 'my-app',
+      // validates ensures to follow npm package name guidelines
+      // availabe here: https://www.npmjs.com/package/validate-npm-package-name
       validate: (name) => {
         const validation = validateNpmName(path.basename(path.resolve(name)))
         if (validation.valid) {
