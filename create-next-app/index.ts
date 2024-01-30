@@ -253,7 +253,7 @@ async function run(): Promise<void> {
         if (validation.valid) {
           return true
         }
-        return 'Invalid project name: ' + validation.problems[0]
+        return '[WORKS]:Invalid project name: ' + validation.problems[0]
       },
     })
 
@@ -273,13 +273,18 @@ async function run(): Promise<void> {
     process.exit(1)
   }
 
+  // let's log this and see what is that values its got
   const resolvedProjectPath = path.resolve(projectPath)
   const projectName = path.basename(resolvedProjectPath)
+  console.log("resolvedProjectPath", resolvedProjectPath)
+  console.log("projectName", projectName)
 
+  // I believe this is already handled in the above prompts call.
+  // Don't think this is necessary.
   const validation = validateNpmName(projectName)
   if (!validation.valid) {
     console.error(
-      `Could not create a project called ${red(
+      `[TEST]::Could not create a project called ${red(
         `"${projectName}"`
       )} because of npm naming restrictions:`
     )
@@ -303,6 +308,8 @@ async function run(): Promise<void> {
   const root = path.resolve(resolvedProjectPath)
   const appName = path.basename(root)
   const folderExists = fs.existsSync(root)
+
+  console.log("root", root, "appName", appName, "folderExists", folderExists)
 
   if (folderExists && !isFolderEmpty(root, appName)) {
     process.exit(1)
