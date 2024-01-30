@@ -27,8 +27,12 @@ export function isFolderEmpty(root: string, name: string): boolean {
     '.yarn',
   ]
 
+  // Just conflicts? why not filesConflicts?
+  // It is inferred that we are dealing with files,
+  // I guess, there's no need to add 
   const conflicts = fs.readdirSync(root).filter(
     (file) =>
+      // validFiles are exempt from the logging
       !validFiles.includes(file) &&
       // Support IntelliJ IDEA-based editors
       !/\.iml$/.test(file)
@@ -39,6 +43,7 @@ export function isFolderEmpty(root: string, name: string): boolean {
       `The directory ${green(name)} contains files that could conflict:`
     )
     console.log()
+    // Logs the files and directories
     for (const file of conflicts) {
       try {
         const stats = fs.lstatSync(path.join(root, file))
